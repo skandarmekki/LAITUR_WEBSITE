@@ -11,10 +11,10 @@ const rate = 10.50;
 const items = [
     { id: 1, cat: "milk", name: "UHT Homogenized Milk (3.5% Fat)", size: "1 Liter", price: 35, img: "img/uht_milk_35.png" },
     { id: 2, cat: "milk", name: "Semi-Skimmed Milk (1.5% Fat)", size: "1 Liter", price: 32, img: "img/milk_semi.png" },
-    { id: 3, cat: "milk", name: "Dietary Skimmed (0.1% Fat)", size: "1 Liter", price: 34, img: "img/milk_diet.png" },
-    { id: 4, cat: "yogurt", name: "Strained Greek Yogurt (10% Fat)", size: "500 g", price: 85, img: "img/yogurt_greek.png" },
-    { id: 5, cat: "butter", name: "Lactic Butter (82% Milkfat)", size: "250 g", price: 110, img: "img/butter_lactic.png" },
-    { id: 6, cat: "cheese", name: "Aged 24m Parmigiano Reggiano", size: "200 g", price: 240, img: "img/parmesan.png" }
+    { id: 3, cat: "milk", name: "Dietary Skimmed (0.1% Fat)", size: "1 Liter", price: 34, img: " " },
+    { id: 4, cat: "yogurt", name: "Strained Greek Yogurt (10% Fat)", size: "500 g", price: 85, img: " " },
+    { id: 5, cat: "butter", name: "Lactic Butter (82% Milkfat)", size: "250 g", price: 110, img: " " },
+    { id: 6, cat: "cheese", name: "Aged 24m Parmigiano Reggiano", size: "200 g", price: 240, img: " " }
 ];
 
 const stores = {
