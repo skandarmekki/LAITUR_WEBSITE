@@ -3,7 +3,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').ad
 
 let basket = [];
 let vaultStorage = [];
-let moneyType = 'TRY';
+let Moneycurrency = 'TRY';
 let orderType = 'delivery';
 let currentCategory = 'all';
 const rate = 10.50; 
@@ -24,11 +24,11 @@ const stores = {
 
 let mapMarkers = [];
 
-function changeCountry(code) {
-    if (code === 'tn') {
-        moneyType = 'TND';
+function changeCountry(currency) {
+    if (currency === 'tn') {
+        Moneycurrency = 'TND';
     } else {
-        moneyType = 'TRY';
+        Moneycurrency = 'TRY';
     }
 
     const opts = document.querySelectorAll('.market-option');
@@ -36,9 +36,9 @@ function changeCountry(code) {
         opts[i].classList.remove('active');
     }
 
-    document.getElementById('btn-' + code).classList.add('active');
+    document.getElementById('btn-' + currency).classList.add('active');
 
-    if (code === 'tn') {
+    if (currency === 'tn') {
         map.flyTo([34.0, 9.5], 6);
     } else {
         map.flyTo([39.0, 35.0], 5);
@@ -49,8 +49,8 @@ function changeCountry(code) {
     }
 
     mapMarkers = [];
-    for (let i = 0; i < stores[code].length; i++) {
-        let s = stores[code][i];
+    for (let i = 0; i < stores[currency].length; i++) {
+        let s = stores[currency][i];
         let marker = L.circle(s.pos, {
             radius: 15000,
             color: '#0062ff',
@@ -65,20 +65,20 @@ function changeCountry(code) {
     update();
 }
 
-function filterCategory(cat) {
-    currentCategory = cat;
+function filterCategory(category) {
+    currentCategory = category;
 
     const btns = document.querySelectorAll('.cat-chip');
     for (let i = 0; i < btns.length; i++) {
         let text = btns[i].innerText.toLowerCase();
         let active = false;
 
-        if (cat === 'all') {
+        if (category === 'all') {
             if (btns[i].innerText.indexOf('All') !== -1) {
                 active = true;
             }
         } else {
-            if (text.indexOf(cat) !== -1) {
+            if (text.indexOf(category) !== -1) {
                 active = true;
             }
         }
@@ -213,7 +213,7 @@ function setMethod(m) {
 }
 
 function format(v) {
-    if (moneyType === 'TND') {
+    if (Moneycurrency === 'TND') {
         return (v / rate).toFixed(2) + " TND";
     } else {
         return v.toFixed(2) + " TRY";
