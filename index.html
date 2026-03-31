@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAITUR Market | Standardized Excellence</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <h1 class="loader-text">Laitur</h1>
+    </div>
+
+    <header>
+        <div class="brand-group">
+            <div class="parent-brand">LAIT<span>UR</span></div>
+            <div class="status-indicator"><span class="dot"></span> current location: Turkey</div>
+        </div>
+
+        <div class="market-selector">
+            <button id="btn-tr" class="market-option" onclick="changeCountry('tr')">Turkey</button>
+            <button id="btn-tn" class="market-option" onclick="changeCountry('tn')">Tunisia</button>
+        </div>
+
+        <div class="header-actions">
+            <button class="about-us-btn" onclick="openAbout()">ABOUT US</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="inventory-section">
+            <div class="hero-header">
+                <div class="hero-content">
+                    <div class="hero-badge">ISO-9001 CERTIFIED</div>
+                    <h1>Our Market</h1>
+                    <p>Scientifically standardized dairy for professional results.</p>
+                    <div class="hero-line"></div>
+                </div>
+            </div>
+
+            <nav class="category-bar">
+                <button class="cat-chip active" onclick="filterCategory('all')">All Products</button>
+                <button class="cat-chip" onclick="filterCategory('milk')">Milk</button>
+                <button class="cat-chip" onclick="filterCategory('yogurt')">Yogurt</button>
+                <button class="cat-chip" onclick="filterCategory('butter')">Butter</button>
+                <button class="cat-chip" onclick="filterCategory('cheese')">Cheese</button>
+                <button class="cat-chip" onclick="filterCategory('cream')">Creams</button>
+            </nav>
+
+            <div id="inventory-grid" class="product-grid"></div>
+        </section>
+
+        <aside id="sidebar">
+            <div class="sidebar-card map-card">
+                <div class="card-header">Our stores</div>
+                <div id="map"></div>
+            </div>
+            
+            <div class="sidebar-card vault-card">
+                <div class="card-header">Order History (<span id="vault-count">0</span>)</div>
+                <div id="vault-list" class="vault-scroll">
+                    <div class="empty-history">No processed batches yet.</div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <button id="main-basket-btn" class="fab-cart" onclick="openBasket()">
+        <div id="cart-count" class="cart-badge">0</div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>Basket</span>
+    </button>
+
+    <div id="basket-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <span class="hero-badge" style="margin-bottom: 5px;">BATCH SELECTION</span>
+                    <h3 style="font-weight: 900; letter-spacing: -1px;">Your Basket</h3>
+                </div>
+                <button class="close-modal" onclick="closeBasket()">✕</button>
+            </div>
+            
+            <div class="order-type-toggle">
+                <button id="m-del" class="active" onclick="setMethod('delivery')">Delivery</button>
+                <button id="m-pick" onclick="setMethod('pickup')">Store Pickup</button>
+            </div>
+
+            <div id="cart-items-list" class="basket-items-scroll"></div>
+
+            <div class="summary-card">
+                <div class="summary-line">
+                    <span class="label">Subtotal</span>
+                    <span class="value" id="sub-total">0.00</span>
+                </div>
+                <div class="summary-line" id="fee-row">
+                    <span class="label">delivery Fee</span>
+                    <span class="value" id="fee-val">0.00</span>
+                </div>
+                <div class="total-divider"></div>
+                <div class="summary-line total">
+                    <span class="label">Total Amount</span>
+                    <span class="value" id="cart-total">0.00</span>
+                </div>
+            </div>
+
+            <button class="checkout-btn" onclick="handleCheckout()">CONFIRM & PROCESS PURCHASE</button>
+        </div>
+    </div>
+
+    <div id="about-modal" class="modal-overlay">
+        <div class="modal-content about-box">
+            <div class="modal-header" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="hero-badge" style="margin-bottom: 0;">CORPORATE PROFILE</div>
+                <button class="close-modal" onclick="closeAbout()">✕</button>
+            </div>
+            <div class="about-body">
+                <div class="parent-brand" style="font-size: 1.8rem; margin-bottom: 10px;">LAIT<span>US</span></div>
+                <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 15px;">Scientific Purity. Standardized.</h3>
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #64748b; margin-bottom: 25px;">LAITUS is a premier laboratory-grade dairy provider. We specialize in high-precision milk and butter products where every SKU is standardized by fat percentage and molecular thermal processing (UHT/HTST).</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-value">99.8%</span>
+                        <span class="stat-label">Purity</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">ISO</span>
+                        <span class="stat-label">9001:2026</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">UHT</span>
+                        <span class="stat-label">Safety</span>
+                    </div>
+                </div>
+            </div>
+            <button class="checkout-btn" onclick="closeAbout()" style="margin-top: 25px; background:var(--text-main)">Return to Market</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
